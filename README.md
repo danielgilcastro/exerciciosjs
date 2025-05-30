@@ -1,0 +1,1 @@
+É necessário executar: `npm install prompt-sync`
