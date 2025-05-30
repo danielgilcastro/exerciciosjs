@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Questão 5 — Simulador de fila de atendimento</h1>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #c0c0c0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background: #fff;
+            border: 2px solid #000;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 24px 32px 32px 32px;
+        }
+
+        h2 {
+            margin-top: 24px;
+            color: #222;
+            font-weight: bold;
+            border-bottom: 2px solid #000;
+            padding-bottom: 4px;
+            margin-bottom: 12px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .fila,
+        .atendendo,
+        .atendidos {
+            min-height: 40px;
+            background: #e4e4e4;
+            border: 2px solid #000;
+            border-radius: 0;
+            padding: 10px;
+            margin-bottom: 16px;
+            font-size: 1.1em;
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid #000;
+            border-radius: 0;
+            font-size: 1em;
+            background: #fff;
+        }
+
+        button {
+            padding: 8px 16px;
+            border: 2px solid #000;
+            background: #e4e4e4;
+            color: #000;
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 2px 2px 0 #888;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            background: #c0c0c0;
+            box-shadow: 1px 1px 0 #888;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .menu {
+            background: #e4e4e4;
+            color: #000;
+            border: 2px solid #000;
+            border-radius: 0;
+            padding: 12px;
+            margin-bottom: 24px;
+            font-size: 1.1em;
+        }
+
+        .label {
+            font-weight: bold;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .telaflow{
+            height: 100px;
+            overflow: scroll;
+
+        }
+    </style>
+    <div class="container">
+
+
+        <h2>Fila de Espera</h2>
+        <div class="fila telaflow" id="fila"></div>
+
+
+
+        <h2>Sendo Atendido</h2>
+        <div class="atendendo telaflow" id="atendendo"></div>
+
+        <h2>Já Atendidos</h2>
+        <div class="atendidos telaflow" id="atendidos"></div>
+
+        <div class="controls">
+            <input type="text" id="nome" placeholder="Digite o nome para entrar na fila">
+            <button onclick="adicionarPessoa()">Adicionar</button>
+            <button onclick="atenderPessoa()">Atender Próximo</button>
+        </div>
+    </div>
+    <script>
+        let fila = [];
+        let atendendo = '';
+        let atendidos = [];
+
+        function atualizar() {
+            document.getElementById('fila').innerHTML = fila.length ? fila.map((n, i) => `${i + 1}. ${n}`).join('<br>') : '<i>Vazia</i>';
+            document.getElementById('atendendo').textContent = atendendo || 'Ninguém';
+            document.getElementById('atendidos').innerHTML = atendidos.length ? atendidos.map((n, i) => `${i + 1}. ${n}`).reverse().join('<br>') : '<i>Ninguém ainda</i>';
+        }
+
+        function adicionarPessoa() {
+            const nome = document.getElementById('nome').value.trim();
+            if (nome) {
+                fila.push(nome);
+                document.getElementById('nome').value = '';
+                atualizar();
+            }
+        }
+
+        function atenderPessoa() {
+            if (atendendo) {
+                atendidos.push(atendendo);
+            }
+            atendendo = fila.shift() || '';
+            atualizar();
+        }
+
+        atualizar();
+    </script>
+
+</body>
+
+</html>

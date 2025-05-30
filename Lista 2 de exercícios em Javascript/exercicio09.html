@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Questão 9 — Verificar se um número está na lista </h1>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: #fff;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 30px 40px 40px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 8px;
+            width: 60%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+        button {
+            padding: 8px 18px;
+            background: #0078d7;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #005fa3;
+        }
+        .result {
+            margin-top: 18px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+    </style>
+    <div class="container">
+        <p>Digite um número para verificar se está na lista:</p>
+        <input type="number" id="userNumber" placeholder="Digite um número" />
+        <br>
+        <button onclick="checkNumber()">Verificar</button>
+        <div class="result" id="result"></div>
+    </div>
+    <script>
+        const numbers = [3, 7, 12, 19, 25, 31, 42, 56, 63, 78];
+        function checkNumber() {
+            const userInput = document.getElementById('userNumber').value;
+            const num = Number(userInput);
+            const resultDiv = document.getElementById('result');
+            if (userInput === '') {
+                resultDiv.textContent = 'Por favor, digite um número.';
+                resultDiv.style.color = '#d9534f';
+                return;
+            }
+            if (numbers.includes(num)) {
+                resultDiv.textContent = `O número ${num} está na lista!`;
+                resultDiv.style.color = '#28a745';
+            } else {
+                resultDiv.textContent = `O número ${num} não está na lista.`;
+                resultDiv.style.color = '#d9534f';
+            }
+        }
+    </script>
+</body>
+</html>

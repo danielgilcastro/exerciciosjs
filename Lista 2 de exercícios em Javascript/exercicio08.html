@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Questão 8 — Análise de vendas com array e condições </h1>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: #fff;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 32px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 24px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #eaf1fb;
+            margin-bottom: 12px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 1.1em;
+            color: #34495e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .label {
+            font-weight: bold;
+        }
+        .value {
+            color: #2980b9;
+        }
+        .dias-vendas {
+            background: #f9fafc;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 4px rgba(44,62,80,0.06);
+        }
+        .dias-vendas-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.08em;
+        }
+        .dias-vendas-list {
+            padding-left: 0;
+            margin: 0;
+        }
+        .dias-vendas-list li {
+            background: none;
+            padding: 4px 0;
+            margin: 0;
+            border-radius: 0;
+            color: #2980b9;
+            font-size: 1em;
+            display: block;
+        }
+    </style>
+    <div class="container">
+        <div class="dias-vendas">
+            <div class="dias-vendas-title">Vendas por dia:</div>
+            <ul class="dias-vendas-list" id="vendas-dias"></ul>
+        </div>
+        <ul id="vendas-info">
+            <li><span class="label">Total vendido:</span> <span class="value" id="total"></span></li>
+            <li><span class="label">Média de vendas:</span> <span class="value" id="media"></span></li>
+            <li><span class="label">Dias acima de 300:</span> <span class="value" id="acima300"></span></li>
+        </ul>
+    </div>
+    <script>
+        let vendas = [100, 250, 300, 50, 400, 700, 150];
+        let total = vendas.reduce((soma, v) => soma + v, 0);
+        let media = (total / vendas.length).toFixed(2);
+        let acima300 = vendas.filter(v => v > 300).length;
+
+        document.getElementById('total').textContent = 'R$ ' + total;
+        document.getElementById('media').textContent = 'R$ ' + media;
+        document.getElementById('acima300').textContent = acima300 + ' dia(s)';
+
+        // Mostra os valores de vendas de cada dia
+        let vendasDias = document.getElementById('vendas-dias');
+        vendas.forEach((valor, idx) => {
+            let li = document.createElement('li');
+            li.textContent = `Dia ${idx + 1}: R$ ${valor}`;
+            vendasDias.appendChild(li);
+        });
+    </script>
+</body>
+</html>

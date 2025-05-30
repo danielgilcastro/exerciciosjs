@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <h1>Questão 3 — Validação de senha com repetição </h1>
+        <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #222;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: #2d2d2d;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 30px 40px 40px 40px;
+            border-radius: 0;
+            border: 2px solid #444;
+            box-shadow: 4px 4px 0 #111, 8px 8px 0 #000;
+        }
+        h1 {
+            text-align: center;
+            color: #e0e0e0;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 #111;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b0b0b0;
+            font-weight: bold;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 2px solid #555;
+            border-radius: 0;
+            background: #181818;
+            color: #e0e0e0;
+            font-size: 16px;
+            box-shadow: inset 2px 2px 0 #333;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #444;
+            color: #fff;
+            border: 2px solid #888;
+            border-radius: 0;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 2px 2px 0 #111;
+            transition: background 0.2s;
+        }
+        button:hover:enabled {
+            background: #555;
+        }
+        button:disabled {
+            background: #222;
+            color: #888;
+            border-color: #444;
+            cursor: not-allowed;
+        }
+        .message {
+            margin-top: 16px;
+            text-align: center;
+            font-weight: bold;
+            background: #181818;
+            border: 1px solid #444;
+            padding: 8px;
+            color: #e0e0e0;
+        }
+        .success {
+            color: #4ec94e;
+        }
+        .error {
+            color: #ff5555;
+        }
+        </style>
+        <div class="container">
+            <form id="senhaForm" autocomplete="off">
+                <label for="senha">Digite a senha:</label>
+                <input type="password" id="senha" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <div class="message" id="mensagem"></div>
+        </div>
+        <script>
+            const senhaCorreta = "123456";
+            let tentativas = 0;
+            const maxTentativas = 3;
+
+            const form = document.getElementById('senhaForm');
+            const senhaInput = document.getElementById('senha');
+            const mensagem = document.getElementById('mensagem');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (senhaInput.value === senhaCorreta) {
+                    mensagem.textContent = "Bem-vindo";
+                    mensagem.className = "message success";
+                    senhaInput.disabled = true;
+                    form.querySelector('button').disabled = true;
+                } else {
+                    tentativas++;
+                    if (tentativas >= maxTentativas) {
+                        mensagem.textContent = "Acesso bloqueado.";
+                        mensagem.className = "message error";
+                        senhaInput.disabled = true;
+                        form.querySelector('button').disabled = true;
+                    } else {
+                        mensagem.textContent = `Senha incorreta. Tentativas restantes: ${maxTentativas - tentativas}`;
+                        mensagem.className = "message error";
+                        senhaInput.value = "";
+                        senhaInput.focus();
+                    }
+                }
+            });
+        </script>
+</body>
+</html>

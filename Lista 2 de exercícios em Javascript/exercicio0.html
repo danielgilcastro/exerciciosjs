@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <button id="bt_inicia"> inicia</button>
+
+
+    <script>
+
+        let btInicia = document.getElementById("bt_inicia");
+
+        let alunos = []
+
+        btInicia.onclick = function () {
+
+            for (let i = 0; i < 5; i++) {
+                let nome = prompt("Digite o nome do aluno " + (i + 1));
+                let nota1 = parseFloat(prompt(`Digite a nota 1º do aluno`  + (i + 1)));
+                let nota2 = parseFloat(prompt("Digite a nota 2º do aluno " + (i + 1)));
+                let nota3 = parseFloat(prompt("Digite a nota 2º do aluno " + (i + 1)));
+                alunos.push({ nome: nome, nota1: nota1, nota2: nota2, nota3: nota3 });
+            }
+
+            alunos.forEach(function (aluno) {
+                aluno.media = (aluno.nota1 + aluno.nota2 + aluno.nota3) / 3;
+                if (aluno.media >= 7) {
+                    aluno.situacao = "Aprovado";
+                } else {
+                    aluno.situacao = "Reprovado";
+                }
+            });
+
+            
+            let sairda = ""
+            alunos.forEach(function (aluno) {
+                sairda += `Nome: ${aluno.nome}, Média: ${aluno.media.toFixed(2)}, Situação: ${aluno.situacao}\n`;
+            });
+
+            alert(sairda);
+
+
+
+        };
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

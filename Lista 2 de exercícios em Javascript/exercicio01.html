@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Questão 1 — Classificação por idade </h1>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #c0c0c0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: #fff;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 32px 24px;
+            border-radius: 0;
+            box-shadow: 2px 2px 0 #808080, 4px 4px 0 #fff, 6px 6px 0 #808080;
+            border: 2px solid #000080;
+        }
+        label, input, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        input {
+            border: 2px solid #808080;
+            border-radius: 0;
+            background: #f0f0f0;
+            padding: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #e0e0e0;
+            color: #000;
+            border: 2px solid #808080;
+            border-radius: 0;
+            padding: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 1px 1px 0 #fff, 2px 2px 0 #808080;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #c0c0c0;
+        }
+        .result {
+            margin-top: 24px;
+            background: #e0e0e0;
+            padding: 16px;
+            border-radius: 0;
+            border: 2px solid #808080;
+            box-shadow: 1px 1px 0 #fff, 2px 2px 0 #808080;
+        }
+    </style>
+    <div class="container">
+        <form id="peopleForm">
+            <label for="numPeople">Quantas pessoas deseja cadastrar?</label>
+            <input type="number" id="numPeople" min="1" required>
+            <div id="agesInputs"></div>
+            <button type="submit">Classificar</button>
+        </form>
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+    <script>
+        const numPeopleInput = document.getElementById('numPeople');
+        const agesInputsDiv = document.getElementById('agesInputs');
+        const form = document.getElementById('peopleForm');
+        const resultDiv = document.getElementById('result');
+
+        numPeopleInput.addEventListener('input', function() {
+            agesInputsDiv.innerHTML = '';
+            const n = parseInt(numPeopleInput.value, 10);
+            if (n > 0) {
+                for (let i = 1; i <= n; i++) {
+                    const label = document.createElement('label');
+                    label.textContent = `Idade da pessoa ${i}:`;
+                    label.setAttribute('for', `age${i}`);
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.id = `age${i}`;
+                    input.name = `age${i}`;
+                    input.min = '0';
+                    input.required = true;
+                    agesInputsDiv.appendChild(label);
+                    agesInputsDiv.appendChild(input);
+                }
+            }
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const n = parseInt(numPeopleInput.value, 10);
+            let criancas = 0, adolescentes = 0, adultos = 0, idosos = 0;
+            for (let i = 1; i <= n; i++) {
+                const age = parseInt(document.getElementById(`age${i}`).value, 10);
+                if (age <= 12) criancas++;
+                else if (age <= 17) adolescentes++;
+                else if (age <= 59) adultos++;
+                else idosos++;
+            }
+            resultDiv.innerHTML = `
+                <strong>Resultado:</strong><br>
+                Crianças: ${criancas}<br>
+                Adolescentes: ${adolescentes}<br>
+                Adultos: ${adultos}<br>
+                Idosos: ${idosos}
+            `;
+            resultDiv.style.display = 'block';
+        });
+    </script>
+
+</body>
+</html>

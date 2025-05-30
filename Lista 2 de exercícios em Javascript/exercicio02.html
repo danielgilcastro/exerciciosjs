@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Questão 2 — Controle de estoque com switch </h1>
+    <div class="container">
+        <div class="stock-info">
+            <h2>Estoque Atual: <span id="stock">100</span> unidades</h2>
+        </div>
+        <div class="menu">
+            <button onclick="entradaProduto()">1. Entrada de produto</button>
+            <button onclick="saidaProduto()">2. Saída de produto</button>
+            <button onclick="verificarEstoque()">3. Verificar estoque</button>
+            <button onclick="sair()">4. Sair</button>
+        </div>
+        <div id="mensagem" class="mensagem"></div>
+    </div>
+    <style>
+        body {
+            background: #c0c0c0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 40px auto;
+            background: #e0e0e0;
+            border: 2px solid #808080;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .stock-info h2 {
+            color: #222;
+            margin-bottom: 20px;
+            font-weight: normal;
+            font-size: 20px;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        .menu button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 15px;
+            border: 2px solid #808080;
+            border-radius: 0;
+            background: #f0f0f0;
+            color: #222;
+            cursor: pointer;
+            box-shadow: 2px 2px 0 #fff inset, -2px -2px 0 #808080 inset;
+            transition: background 0.2s, color 0.2s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .menu button:hover {
+            background: #d4d0c8;
+            color: #000;
+        }
+        .menu button:disabled {
+            background: #b0b0b0;
+            color: #888;
+            cursor: not-allowed;
+        }
+        .mensagem {
+            margin-top: 20px;
+            min-height: 24px;
+            color: #000080;
+            font-weight: bold;
+            background: #fff;
+            border: 2px solid #808080;
+            border-radius: 0;
+            padding: 8px;
+            box-shadow: 1px 1px 0 #fff inset, -1px -1px 0 #808080 inset;
+        }
+    </style>
+    <script>
+        let estoque = 100;
+        let saiu = false;
+
+        function atualizarEstoque() {
+            document.getElementById('stock').textContent = estoque;
+        }
+
+        function entradaProduto() {
+            if (saiu) return;
+            let qtd = prompt("Quantidade de entrada:");
+            qtd = parseInt(qtd);
+            if (!isNaN(qtd) && qtd > 0) {
+                estoque += qtd;
+                atualizarEstoque();
+                mostrarMensagem(`Entrada de ${qtd} unidades realizada.`);
+            } else {
+                mostrarMensagem("Quantidade inválida.");
+            }
+        }
+
+        function saidaProduto() {
+            if (saiu) return;
+            let qtd = prompt("Quantidade de saída:");
+            qtd = parseInt(qtd);
+            if (!isNaN(qtd) && qtd > 0) {
+                if (qtd <= estoque) {
+                    estoque -= qtd;
+                    atualizarEstoque();
+                    mostrarMensagem(`Saída de ${qtd} unidades realizada.`);
+                } else {
+                    mostrarMensagem("Estoque insuficiente.");
+                }
+            } else {
+                mostrarMensagem("Quantidade inválida.");
+            }
+        }
+
+        function verificarEstoque() {
+            if (saiu) return;
+            mostrarMensagem(`Estoque atual: ${estoque} unidades.`);
+        }
+
+        function sair() {
+            saiu = true;
+            mostrarMensagem("Operação finalizada. Obrigado!");
+            document.querySelectorAll('.menu button').forEach(btn => btn.disabled = true);
+        }
+
+        function mostrarMensagem(msg) {
+            document.getElementById('mensagem').textContent = msg;
+        }
+    </script>
+</body>
+</html>
